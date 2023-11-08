@@ -12,7 +12,6 @@ def parity(x):
     :type x: int
     :rtype: int
     """
-
     x ^= x >> 32
     x ^= x >> 16
     x ^= x >> 8
@@ -26,7 +25,7 @@ def main():
     start_time = time.time()
 
     #test case
-    x = 7
+    x = 65535
     print(parity(x))
 
     end_time = time.time()
