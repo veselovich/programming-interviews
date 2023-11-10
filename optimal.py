@@ -19,7 +19,7 @@ def main():
     start_time = time.time()
 
     #test case
-    #TODO
+    print(func_name(0))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
