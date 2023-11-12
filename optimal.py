@@ -3,23 +3,30 @@ from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def even_odd(A):
     """
-    Name
-    Example
+    Sorts array: even first, than odds
+    Example: [1,2,3,4,5,6] -> [6,2,4,5,3,1]
     
-    :type x: int
-    :rtype: int
+    :type A: list
+    :rtype: list
     """
-    #TODO
-    raise NotImplemented
+    next_even, next_odd = 0, len(A) - 1
+    while next_even < next_odd:
+        if A[next_even] % 2 == 0:
+            next_even += 1
+        else:
+            A[next_even], A[next_odd] = A[next_odd], A[next_even]
+            next_odd -= 1
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    A = [1,2,3,4,5,6]
+    even_odd(A)
+    print(A)
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
