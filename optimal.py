@@ -1,25 +1,31 @@
 import time
 from memory_profiler import profile
+import random
 
 
 @profile
-def func_name(x):
+def random_sampling (k, A):
     """
-    Name
+    Sample
     Example
     
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    for i in range(k):
+    # Generate a random index in [i, len(A) - 1].
+        r = random.randint(i, len(A) - 1)
+        A[i], A[r] = A[r], A[i]
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    k = 3
+    A = [3,7,5,11]
+    random_sampling(k, A)
+    print(A[:k])
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
