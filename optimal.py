@@ -1,25 +1,26 @@
 import time
 from memory_profiler import profile
+from random_sampling import random_sampling
 
 
 @profile
-def func_name(x):
+def compute_random_permutation(n):
     """
-    Name
-    Example
+    Generates a randon permutation
     
-    :type x: int
-    :rtype: int
+    :type n: int
+    :rtype: list
     """
-    #TODO
-    raise NotImplemented
+    permutation = list(range(n))
+    random_sampling(n, permutation)
+    return permutation
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(compute_random_permutation(6))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
