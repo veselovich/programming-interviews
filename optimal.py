@@ -3,7 +3,7 @@ from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def generate_pascal_triangle(n) :
     """
     Name
     Example
@@ -11,15 +11,19 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    result = [[1] *(i + 1) for i in range(n)]
+    for i in range(n):
+        for j in range(1, i):
+            # Sets this entry to the sum of the two above adjacent entries.
+            result[i][j] = result[i - 1][j - 1] + result[i - 1][j]
+    return result
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(generate_pascal_triangle(4))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
