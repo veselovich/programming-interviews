@@ -1,9 +1,10 @@
+import functools
 import time
 from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def ss_decode_col_id(col):
     """
     Name
     Example
@@ -11,15 +12,15 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    return functools.reduce(
+        lambda result, c: result * 26 + ord(c) - ord('A') + 1, col, 0)
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(ss_decode_col_id('AB'))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
