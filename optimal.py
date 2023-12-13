@@ -3,23 +3,22 @@ from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def is_palindromic(s):
     """
-    Name
-    Example
+    Check if string is palindromic
+    Example: "abcba" - True
     
-    :type x: int
-    :rtype: int
+    :type s: str
+    :rtype: bool
     """
-    #TODO
-    raise NotImplemented
+    return all(s[i] == s[~i] for i in range(len(s) // 2))
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(is_palindromic("abcba"))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
