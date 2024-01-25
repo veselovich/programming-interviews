@@ -3,7 +3,7 @@ from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def is_well_formed(s):
     """
     Name
     Example
@@ -11,15 +11,21 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    left_chars, lookup = [], {'(': ')', '{': '}', '[': ']'}
+    for c in s:
+        if c in lookup:
+            left_chars.append(c)
+        elif not left_chars or lookup[left_chars.pop()] != c:
+            # Unmatched right char or mismatched chars.
+            return False
+    return not left_chars
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(is_well_formed('{}{[()][]}'))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
