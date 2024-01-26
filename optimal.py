@@ -1,9 +1,10 @@
+import collections
 import time
 from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def examine_buildings_with_sunset(sequence):
     """
     Name
     Example
@@ -11,15 +12,22 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    BuildingWithHeight = collections.namedtuple('BuildingWithHeight',
+                                                ('id', 'height'))
+    candidates = []
+    for building_idx, building_height in enumerate(sequence):
+        while candidates and building_height >= candidates[-1].height:
+            candidates.pop()
+        candidates.append(BuildingWithHeight(building_idx, building_height))
+    return [candidate.id for candidate in reversed(candidates)]
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    s = [150, 100, 50, 10, 120]
+    print(examine_buildings_with_sunset(s))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
