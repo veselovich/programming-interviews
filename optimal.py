@@ -1,9 +1,11 @@
 import time
 from memory_profiler import profile
 
+from nodes import *
+
 
 @profile
-def func_name(x):
+def binary_tree_depth_order(tree) :	
     """
     Name
     Example
@@ -11,15 +13,27 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    result = []
+    if not tree:
+        return result
+
+    curr_depth_nodes = [tree]
+
+    while curr_depth_nodes:
+        result.append([curr.data for curr in curr_depth_nodes])
+        curr_depth_nodes = [
+            child
+            for curr in curr_depth_nodes for child in (curr.left, curr.right)
+            if child
+            ]
+    return result
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(binary_tree_depth_order(root_tree))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
