@@ -1,9 +1,12 @@
+import collections
 import time
 from memory_profiler import profile
 
+from nodes import *
+
 
 @profile
-def func_name(x):
+def is_balanced_binary_tree(tree):
     """
     Name
     Example
@@ -11,15 +14,36 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    BalancedStatusWithHeight = collections.namedtuple(
+        'Balancedstatuswitheight', ('balanced', 'height'))
+    # First value of the return value indicates if tree is balanced, and if
+    # balanced the second value of the return value is the height of tree.
+    def check_balanced(tree):
+        if not tree:
+            return BalancedStatusWithHeight(True, -1) # Base case.
+        
+        left_result = check_balanced(tree.left)
+        if not left_result.balanced:
+            # Left subtree is not balanced.
+            return BalancedStatusWithHeight(False, 0)
+        
+        right_result = check_balanced(tree.right)
+        if not right_result.balanced:
+            # Right subtree is not balanced.
+            return BalancedStatusWithHeight(False, 0)
+        
+        is_balanced = abs(left_result.height - right_result.height) <= 1
+        height = max(left_result.height, right_result.height) + 1
+        return BalancedStatusWithHeight(is_balanced, height)
+    
+    return check_balanced(tree).balanced
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(is_balanced_binary_tree(root_tree))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
