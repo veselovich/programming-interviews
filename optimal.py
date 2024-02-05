@@ -1,9 +1,11 @@
 import time
 from memory_profiler import profile
 
+from nodes import *
+
 
 @profile
-def func_name(x):
+def has_path_sum(tree, remaining_weight):
     """
     Name
     Example
@@ -11,15 +13,20 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    if not tree:
+        return False
+    if not tree.left and not tree.right: # Leaf.
+        return remaining_weight == tree.data
+    # Non-leaf.
+    return (has_path_sum(tree.left, remaining_weight - tree.data)
+            or has_path_sum(tree.right, remaining_weight - tree.data))
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(has_path_sum(root_tree, 10))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
