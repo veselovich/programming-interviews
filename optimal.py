@@ -1,9 +1,11 @@
 import time
 from memory_profiler import profile
 
+from nodes import *
+
 
 @profile
-def func_name(x):
+def inorder_traversal(tree):
     """
     Name
     Example
@@ -11,15 +13,26 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    s, result = [], []
+    while s or tree:
+        if tree:
+            s.append(tree)
+            # Going left.
+            tree = tree.left
+        else:
+            # Going up.
+            tree = s.pop()
+            result.append(tree.data)
+            # Going right.
+            tree = tree.right
+    return result
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(inorder_traversal(root_tree))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
