@@ -1,9 +1,10 @@
+import heapq
 import time
 from memory_profiler import profile
 
 
 @profile
-def func_name(x):
+def merge_sorted_arrays(sorted_arrays):
     """
     Name
     Example
@@ -11,15 +12,38 @@ def func_name(x):
     :type x: int
     :rtype: int
     """
-    #TODO
-    raise NotImplemented
+    min_heap = []
+    # Builds a list of iterators for each array in sorted_arrays.
+    sorted_arrays_iters = [iter(x) for x in sorted_arrays]
+
+    # Puts first element from each iterator in min_heap.
+    for i, it in enumerate(sorted_arrays_iters):
+        first_element = next(it, None)
+        if first_element is not None:
+            heapq.heappush(min_heap, (first_element, i))
+
+    result = []
+    while min_heap:
+        smallest_entry, smallest_array_i = heapq.heappop(min_heap)
+        smallest_array_iter = sorted_arrays_iters[smallest_array_i]
+        result.append(smallest_entry)
+        next_element = next(smallest_array_iter, None)
+        if next_element is not None:
+            heapq.heappush(min_heap, (next_element, smallest_array_i))
+    return result
+
+
+# Pythonic solution, uses the heapq.merge() method which takes multiple inputs.
+def merge_sorted_arrays_pythonic(sorted_arrays):
+    return list(heapq.merge(*sorted_arrays))
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(merge_sorted_arrays([[3,5,7], [0,6], [0,6,28]]))
+    print(merge_sorted_arrays_pythonic([[3,5,7], [0,6], [0,6,28]]))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
