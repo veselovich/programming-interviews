@@ -1,25 +1,20 @@
+import collections
 import time
 from memory_profiler import profile
 
-
 @profile
-def func_name(x):
-    """
-    Name
-    Example
-    
-    :type x: int
-    :rtype: int
-    """
-    #TODO
-    raise NotImplemented
+def can_form_palindrome(s):
+    # A string can be permuted to form a palindrome if and only if the number
+    # of chars whose frequencies is odd is at most 1.
+    return sum(v % 2 for v in collections.Counter(s).values()) <= 1
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(can_form_palindrome('edified'))
+    print(can_form_palindrome('abcabcdd'))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
