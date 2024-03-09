@@ -3,23 +3,37 @@ from memory_profiler import profile
 
 
 @profile
-def func_name(x):
-    """
-    Name
-    Example
-    
-    :type x: int
-    :rtype: int
-    """
-    #TODO
-    raise NotImplemented
+def test_collatz_conjecture(n):
+    # Stores odd numbers already tested to converge to 1.
+    verified_numbers = set()
+
+    # Starts from 3, hypothesis holds trivially for 1.
+    for i in range(3, n + 1):
+        sequence = set()
+        test_i = i
+        while test_i >= i:
+            if test_i in sequence:
+                # We previously encountered test_i, so the Collatz sequence has
+                # fallen into a loop. This disproves the hypothesis, so we
+                # short-circuit, returning False.
+                return False
+            sequence.add(test_i)
+
+            if test_i % 2: # Odd number.
+                if test_i in verified_numbers:
+                    break # test_i has already been verified to converge to 1.
+                verified_numbers.add(test_i)
+                test_i = 3 * test_i + 1 # Multiply by 3 and add 1.
+            else:
+                test_i //= 2 # Even number, halve it.
+    return True
 
 
 def main():
     start_time = time.time()
 
     #test case
-    print(func_name(0))
+    print(test_collatz_conjecture(10000))
 
     end_time = time.time()
     print(f"\nExecution time: {end_time - start_time:.2}s")
